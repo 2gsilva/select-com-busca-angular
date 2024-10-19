@@ -1,0 +1,65 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Pesquisar</h4>
+      <button 
+        type="button" 
+        class="btn-close" 
+        aria-label="Close" 
+        (click)="modal.dismiss('Cross click')">
+      </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col">
+                    <input 
+                        type="text"
+                        formControlName="item"
+                        class="form-control"
+                        (keyup)="getItem(form.get('item')?.value)"
+                        placeholder="Digite o que deseja pesquisar"
+                    >
+                </div>
+            </div>
+            <div class="row table-container mt-2">
+                <div class="col">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Código</th>
+                                <th scope="col">Ocupação</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of responsePesquisa">
+                                <th scope="row">
+                                    {{item?.codigo}}
+                                </th>
+                                <td>
+                                    {{item?.titulo}}
+                                </td>
+                                <td>
+                                    <button 
+                                        class="btn btn-light" 
+                                        (click)="select(item)">
+                                        Selecionar
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+      </form>
+    </div>
+  </ng-template>
+  
+  <button
+    class="btn" 
+    type="button" 
+    class="btn btn-primary"
+    (click)="open(content)"> 
+        Abrir Modal de Pesquisa
+  </button>
+  
